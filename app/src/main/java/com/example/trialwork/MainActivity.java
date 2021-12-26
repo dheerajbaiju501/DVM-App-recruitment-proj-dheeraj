@@ -101,11 +101,24 @@ public class MainActivity extends AppCompatActivity {
         if(userSelection == compSelection){
             //Tie
             wonLostTieTextView.setText("Tie");
-        }else if ((userSelection==1 && compSelection==2)||(userSelection==2 && compSelection==3)){
+        }if (userSelection==1 && compSelection==2) {
+        //Comp win
+        compScore++;
+        wonLostTieTextView.setText("You lose");
+
+        }if (userSelection==2 && compSelection==3)  {
             //Comp win
             compScore++;
             wonLostTieTextView.setText("You lose");
-        }else if ((userSelection==1 && compSelection==3)||(userSelection==2&&compSelection==1)) {
+
+
+        } if (userSelection==1 && compSelection==3){
+        //user win
+        userScore++;
+        wonLostTieTextView.setText("You win");
+
+        }if (userSelection==2&&compSelection==1) {
+
             //user win
             userScore++;
             wonLostTieTextView.setText("You win");
