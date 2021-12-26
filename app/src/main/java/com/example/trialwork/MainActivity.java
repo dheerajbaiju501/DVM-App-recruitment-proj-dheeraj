@@ -1,31 +1,45 @@
 package com.example.trialwork;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+    private Handler mHandler = new Handler();
 
 
-    private static final String TAG = "MainActivity";
+
+    public static final String TAG = "MainActivity";
 
     TextView userSelectionTextView, compSelectionTextView, wonLostTieTextView, scoreTextView;
 
     int userScore = 0, compScore = 0;
     Random random;
-    Button exitbt;
+
+
+    Dialog dialog;
+
+
+
+
 
 
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -36,20 +50,15 @@ public class MainActivity extends AppCompatActivity {
         compSelectionTextView = findViewById(R.id.compSelectionTextView);
         wonLostTieTextView = findViewById(R.id.wonLostTieTextView);
         scoreTextView = findViewById(R.id.scoreTextView);
+        dia();
 
 
 
 
-    exitbt = (Button)findViewById(R.id.exitbt);
-    exitbt.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            moveTaskToBack(true);
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
 
-        }
-    });
+
+
+
 
 
 
@@ -68,14 +77,19 @@ public class MainActivity extends AppCompatActivity {
         
 
     }
-    public void resetButton(View view){
-        wonLostTieTextView.setText("");
-        userSelectionTextView.setText("");
-        compSelectionTextView.setText("");
-        userScore = 0;
-        compScore = 0;
-        setScoreTextView(userScore,compScore);
+
+    public void dia(){
+        Button exitbt;
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.popup);
+        dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.background));
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
     }
+
+
+
+
 
 
 
@@ -107,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             case 3: userSelectionTextView.setText("Scissors");
             break;
 
+
         }
 
         switch(compSelection){
@@ -119,11 +134,25 @@ public class MainActivity extends AppCompatActivity {
             case 3: compSelectionTextView.setText("Scissors");
                 break;
 
+
+        }
+        if(userScore==5||compScore==5){
+            if(userScore>compScore){
+                wonLostTieTextView.setText("Yay..... you win!!!");
+            }else{
+                wonLostTieTextView.setText("Oops... you lose");
+            }
+            openActivity3();
         }
 
         setScoreTextView(userScore, compScore);
 
 
+    }
+    public void openActivity3(){
+        Intent intent = new Intent(this, MainActivity3.class);
+
+        startActivity(intent);
     }
 
     private void setScoreTextView(int userScore, int compScore){
