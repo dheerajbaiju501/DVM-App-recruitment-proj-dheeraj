@@ -99,30 +99,65 @@ public class MainActivity extends AppCompatActivity {
         int compSelection = random.nextInt(high)+low;
 
         if(userSelection == compSelection){
+
             //Tie
             wonLostTieTextView.setText("Tie");
-        }if (userSelection==1 && compSelection==2) {
-        //Comp win
-        compScore++;
-        wonLostTieTextView.setText("You lose");
+        } if(userSelection==1)
+        {
+            if(compSelection==2)
+            {
+                //Comp win
+                compScore++;
+                wonLostTieTextView.setText("You lose");
 
-        }if (userSelection==2 && compSelection==3)  {
-            //Comp win
-            compScore++;
-            wonLostTieTextView.setText("You lose");
+            }else if(compSelection==3)
+            {
+                //user win
+                userScore++;
+                wonLostTieTextView.setText("You win");
 
-
-        } if (userSelection==1 && compSelection==3){
-        //user win
-        userScore++;
-        wonLostTieTextView.setText("You win");
-
-        }if (userSelection==2&&compSelection==1) {
-
-            //user win
-            userScore++;
-            wonLostTieTextView.setText("You win");
+            }
         }
+        else if(userSelection==2)
+        {
+                if(compSelection==1)
+                {
+                    //user win
+                    userScore++;
+                    wonLostTieTextView.setText("You win");
+
+
+                }
+                else if(compSelection==3)
+                {
+                    //Comp win
+                    compScore++;
+                    wonLostTieTextView.setText("You lose");
+                }
+
+        }
+        else if(userSelection==3)
+        {
+            if(compSelection==1)
+            {
+                //Comp win
+                compScore++;
+                wonLostTieTextView.setText("You lose");
+
+            }
+            else if(compSelection==2)
+            {
+                //user win
+                userScore++;
+                wonLostTieTextView.setText("You win");
+
+            }
+
+        }
+
+
+
+
 
         switch(userSelection){
             case 1: userSelectionTextView.setText("Rock");
